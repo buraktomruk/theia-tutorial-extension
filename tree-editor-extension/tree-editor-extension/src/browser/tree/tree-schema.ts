@@ -200,18 +200,49 @@ export const tutorialView = {
     {
       'type': 'Control',
       'label': 'Check Start State',
-      'scope': '#/properties/checkStartState'
+      'scope': '#/properties/checkStartState',
+      "options": {
+        "detail": {
+          "type": "VerticalLayout",
+          "elements": [
+            {
+              "type": "Control",
+              'label': 'Test Name',
+              "scope": "#/properties/testName"
+            },
+            {
+              "type": "Label",
+              "text": "Commands"
+            },
+            {
+              "type": "Control",
+              'label': 'Commands',
+              "scope": "#/properties/command"
+            }
+          ]
+        }
+      }
     },
     {
       'type': 'Control',
       'label': 'Test',
       'scope': '#/properties/test'
     },
-    // {
-    //   'type': 'Control',
-    //   'label': 'Content',
-    //   'scope': '#/properties/content'
-    // },
+    {
+      'type': 'Control',
+      'label': 'Content',
+      'scope': '#/properties/content'
+    },
+    {
+      'type': 'Control',
+      'label': 'Rating',
+      'scope': '#/properties/rating/properties/rating'
+    },
+    {
+      'type': 'Control',
+      'label': 'Tabs',
+      'scope': '#/properties/tabs'
+    },
   ]
  };
 
@@ -331,6 +362,24 @@ export const tutorialSchema = {
               "items": {
                   "$ref": "#/definitions/instruction"
               }
+          },
+          'rating': {
+            "type": "object",
+            "properties": {
+              "rating": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5
+              }
+            }
+          },
+          'tabs': {
+            "type": "object",
+            'properties': {
+              'typeId': {
+                'const': '#tabs'
+              },
+            },
           }
       }
   },
@@ -344,21 +393,27 @@ export const tutorialSchema = {
     },
     "oneOf": [
         {
+            'title': 'Check If Files Exist',
             "$ref": "#/definitions/checkIfFilesExist"
         },
         {
+          'title': 'Terminal Commands',
             "$ref": "#/definitions/terminalCommands"
         },
         {
+          'title': 'Open File',
             "$ref": "#/definitions/openFile"
         },
         {
+          'title': 'Automatic Import',
             "$ref": "#/definitions/automaticImport"
         },
         {
+          'title': 'File Difference',
             "$ref": "#/definitions/fileDiff"
         },
         {
+          'title': 'Clean Exercise Folder',
             "$ref": "#/definitions/cleanExerciseFolder"
         }
     ]
@@ -568,12 +623,23 @@ export const tutorialSchema = {
               "text": {
                   "type": "string"
               },
-              // "content": {
-              //     "type": "array",
-              //     "items": {
-              //         "$ref": "#/definitions/instruction"
-              //     }
-              // }
+              "content": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/html"
+                        },
+                        {
+                            "$ref": "#/definitions/image"
+                        },
+                        {
+                            "$ref": "#/definitions/commandButton"
+                        }
+                    ]
+                  }
+              }
           },
           "additionalProperties": false
       }

@@ -5,6 +5,9 @@ import {
 import { injectable, postConstruct } from "inversify";
 import { DetailFormWidget } from "@eclipse-emfcloud/theia-tree-editor";
 // import MyGroupRenderer, { myGroupTester } from "./MyGroup";
+import RatingControl from "./RatingControl";
+import ratingControlTester from "./ratingControlTester";
+import TabsControl, { tabsControlTester } from "./TabsControl";
 
 @injectable()
 export class TutorialDetailFormWidget extends DetailFormWidget {
@@ -19,6 +22,8 @@ export class TutorialDetailFormWidget extends DetailFormWidget {
       //   tester: myGroupTester,
       //   renderer: MyGroupRenderer,
       // },
+      { tester: ratingControlTester, renderer: RatingControl },
+      { tester: tabsControlTester, renderer: TabsControl },
     ];
 
     const cells = [

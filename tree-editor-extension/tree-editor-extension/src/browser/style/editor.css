@@ -6,3 +6,8 @@
   flex-grow: 1;
   max-width: 960px; /* Half the width of a full hd display. */
 }
+
+
+.MuiButtonBase-root.MuiTab-root {
+  width: 300px;
+}
